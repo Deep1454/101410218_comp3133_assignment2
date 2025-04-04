@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-employee-details',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, RouterLink],
+  imports: [CommonModule, MatCardModule, MatButtonModule],
   templateUrl: './employee-details.component.html',
   styleUrls: ['./employee-details.component.css'],
 })
