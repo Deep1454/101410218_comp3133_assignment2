@@ -1,0 +1,20 @@
+.employee-details-card {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .employee-info p {
+    margin: 10px 0;
+  }
+  
+  .profile-image {
+    max-width: 200px;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+  
+  button {
+    width: 100%;
+  }

@@ -1,0 +1,22 @@
+<mat-card class="employee-details-card" *ngIf="employee">
+    <mat-card-header>
+      <mat-card-title>{{ employee.firstName }} {{ employee.lastName }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="employee-info">
+        <p><strong>Email:</strong> {{ employee.email }}</p>
+        <p><strong>Gender:</strong> {{ employee.gender }}</p>
+        <p><strong>Position:</strong> {{ employee.position }}</p>
+        <p><strong>Salary:</strong> {{ employee.salary }}</p>
+        <p><strong>Join Date:</strong> {{ employee.joinDate | date }}</p>
+        <p><strong>Department:</strong> {{ employee.department }}</p>
+        <div *ngIf="employee.profileImage">
+          <strong>Profile Picture:</strong>
+          <img [src]="backendUrl + employee.profileImage" alt="Profile Picture" class="profile-image" />
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="goBack()">Back to List</button>
+    </mat-card-actions>
+  </mat-card>
