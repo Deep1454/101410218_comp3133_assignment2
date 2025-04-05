@@ -1,92 +1,93 @@
-<mat-card class="employee-add-card">
-    <mat-card-header>
+<mat-card>
+  <mat-card-header>
       <mat-card-title>Add Employee</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
+  </mat-card-header>
+  <mat-card-content>
       <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="fill">
-          <mat-label>First Name</mat-label>
-          <input matInput formControlName="firstName" />
-          <mat-error *ngIf="employeeForm.get('firstName')?.hasError('required')">
-            First Name is required
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field appearance="fill">
-          <mat-label>Last Name</mat-label>
-          <input matInput formControlName="lastName" />
-          <mat-error *ngIf="employeeForm.get('lastName')?.hasError('required')">
-            Last Name is required
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field appearance="fill">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email" type="email" />
-          <mat-error *ngIf="employeeForm.get('email')?.hasError('required')">
-            Email is required
-          </mat-error>
-          <mat-error *ngIf="employeeForm.get('email')?.hasError('email')">
-            Invalid email format
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field appearance="fill">
-          <mat-label>Gender</mat-label>
-          <mat-select formControlName="gender">
-            <mat-option value="Male">Male</mat-option>
-            <mat-option value="Female">Female</mat-option>
-            <mat-option value="Other">Other</mat-option>
-          </mat-select>
-          <mat-error *ngIf="employeeForm.get('gender')?.hasError('required')">
-            Gender is required
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field appearance="fill">
-          <mat-label>Position</mat-label>
-          <input matInput formControlName="position" />
-          <mat-error *ngIf="employeeForm.get('position')?.hasError('required')">
-            Position is required
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field appearance="fill">
-          <mat-label>Salary</mat-label>
-          <input matInput formControlName="salary" type="number" />
-          <mat-error *ngIf="employeeForm.get('salary')?.hasError('required')">
-            Salary is required
-          </mat-error>
-          <mat-error *ngIf="employeeForm.get('salary')?.hasError('min')">
-            Salary must be at least 1000
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field appearance="fill">
-          <mat-label>Join Date</mat-label>
-          <input matInput formControlName="joinDate" type="date" />
-          <mat-error *ngIf="employeeForm.get('joinDate')?.hasError('required')">
-            Join Date is required
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field appearance="fill">
-          <mat-label>Department</mat-label>
-          <input matInput formControlName="department" />
-          <mat-error *ngIf="employeeForm.get('department')?.hasError('required')">
-            Department is required
-          </mat-error>
-        </mat-form-field>
-  
-        <div class="file-upload">
-          <label for="profileImage">Profile Picture</label>
-          <input id="profileImage" type="file" (change)="onFileChange($event)" accept="image/*" />
-        </div>
-  
-        <button mat-raised-button color="primary" type="submit" [disabled]="employeeForm.invalid">
-          Add Employee
-        </button>
+          <mat-form-field appearance="fill">
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="firstName" />
+              @if (employeeForm.get('firstName')?.hasError('required')) {
+                  <mat-error>First Name is required</mat-error>
+              }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="lastName" />
+              @if (employeeForm.get('lastName')?.hasError('required')) {
+                  <mat-error>Last Name is required</mat-error>
+              }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" type="email" />
+              @if (employeeForm.get('email')?.hasError('required')) {
+                  <mat-error>Email is required</mat-error>
+              }
+              @if (employeeForm.get('email')?.hasError('email')) {
+                  <mat-error>Invalid email format</mat-error>
+              }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+              <mat-label>Gender</mat-label>
+              <mat-select formControlName="gender">
+                  <mat-option value="Male">Male</mat-option>
+                  <mat-option value="Female">Female</mat-option>
+                  <mat-option value="Other">Other</mat-option>
+              </mat-select>
+              @if (employeeForm.get('gender')?.hasError('required')) {
+                  <mat-error>Gender is required</mat-error>
+              }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+              <mat-label>Position</mat-label>
+              <input matInput formControlName="position" />
+              @if (employeeForm.get('position')?.hasError('required')) {
+                  <mat-error>Position is required</mat-error>
+              }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+              <mat-label>Salary</mat-label>
+              <input matInput formControlName="salary" type="number" />
+              @if (employeeForm.get('salary')?.hasError('required')) {
+                  <mat-error>Salary is required</mat-error>
+              }
+              @if (employeeForm.get('salary')?.hasError('min')) {
+                  <mat-error>Salary must be at least 1000</mat-error>
+              }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+              <mat-label>Join Date</mat-label>
+              <input matInput formControlName="joinDate" type="date" />
+              @if (employeeForm.get('joinDate')?.hasError('required')) {
+                  <mat-error>Join Date is required</mat-error>
+              }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+              <mat-label>Department</mat-label>
+              <input matInput formControlName="department" />
+              @if (employeeForm.get('department')?.hasError('required')) {
+                  <mat-error>Department is required</mat-error>
+              }
+          </mat-form-field>
+
+          <div>
+              <label for="profileImage">Profile Image (Optional)</label>
+              <input id="profileImage" type="file" (change)="onFileChange($event)" accept="image/*" />
+          </div>
+
+          @if (errorMessage) {
+              <mat-error>{{ errorMessage }}</mat-error>
+          }
+
+          <button mat-raised-button color="primary" type="submit" [disabled]="employeeForm.invalid">Add Employee</button>
       </form>
-      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
-    </mat-card-content>
-  </mat-card>
+  </mat-card-content>
+</mat-card>

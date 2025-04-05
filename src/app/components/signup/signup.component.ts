@@ -7,58 +7,67 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
+import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-signup',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    RouterLink,
-  ],
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css'],
+    selector: 'app-signup',
+    standalone: true,
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSelectModule,
+    ],
+    templateUrl: './signup.component.html',
+    styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent {
-  signupForm: FormGroup;
-  errorMessage: string | null = null;
+    signupForm: FormGroup;
+    errorMessage: string | null = null;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
-  ) {
-    this.signupForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-    });
-  }
+    constructor(
+        private fb: FormBuilder,
+        private authService: AuthService,
+        private router: Router
+    ) {
+        this.signupForm = this.fb.group({
+            firstName: ['', Validators.required],
+            lastName: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
+            password: ['', [Validators.required, Validators.minLength(6)]],
+            gender: ['', Validators.required],
+        });
+    }
 
-  onSubmit() {
-    if (this.signupForm.invalid) return;
+    onSubmit(): void {
+        if (this.signupForm.invalid) {
+            return;
+        }
 
-    const { username, email, password } = this.signupForm.value;
+        const { firstName, lastName, email, password } = this.signupForm.value;
 
-    this.authService
-      .mutate<{ signup: { id: string; username: string; email: string } }>(SIGNUP, {
-        username,
-        email,
-        password,
-      })
-      .subscribe({
-        next: () => {
-          this.router.navigate(['/login']);
-        },
-        error: (error) => {
-          this.errorMessage = error.message;
-        },
-      });
-  }
+
+        this.authService
+            .mutate<{ signup: { token: string } }>(SIGNUP, { firstName, lastName, email, password })
+            .subscribe({
+                next: (response) => {
+                    const token = response.signup.token;
+                    this.authService.setToken(token);
+                    this.router.navigate(['/employees']);
+                },
+                error: (error) => {
+                    this.errorMessage = error.message;
+                    console.error('Signup Error:', error);
+                    if (error.message.includes('not authenticated')) {
+                        this.router.navigate(['/login'], {
+                            queryParams: { message: 'Please log in after signing up.' },
+                        });
+                    }
+                },
+            });
+    }
 }

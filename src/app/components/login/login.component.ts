@@ -1,61 +1,77 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { LOGIN } from '../../graphql.queries';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [
-    CommonModule, 
-    ReactiveFormsModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    RouterLink,
-  ],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+    selector: 'app-login',
+    standalone: true,
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+    ],
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
-  loginForm: FormGroup;
-  errorMessage: string | null = null;
+export class LoginComponent implements OnInit {
+    loginForm: FormGroup;
+    errorMessage: string | null = null;
+    infoMessage: string | null = null;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
-  ) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-    });
-  }
+    constructor(
+        private fb: FormBuilder,
+        private authService: AuthService,
+        private router: Router,
+        private route: ActivatedRoute
+    ) {
+        this.loginForm = this.fb.group({
+            email: ['', [Validators.required, Validators.email]],
+            password: ['', Validators.required],
+        });
+    }
 
-  onSubmit() {
-    if (this.loginForm.invalid) return;
+    ngOnInit(): void {
+        this.route.queryParams.subscribe((params) => {
+            if (params['message']) {
+                this.infoMessage = params['message'];
+            }
+        });
+    }
 
-    const { email, password } = this.loginForm.value;
+    onSubmit(): void {
+        if (this.loginForm.invalid) {
+            return;
+        }
 
-    this.authService
-      .query<{ login: { token: string } }>(LOGIN, { email, password })
-      .subscribe({
-        next: (data) => {
-          const { token } = data.login;
-          this.authService.setToken(token);
-          this.router.navigate(['/employees']);
-        },
-        error: (error) => {
-          this.errorMessage = error.message;
-        },
-      });
-  }
+        const { email, password } = this.loginForm.value;
+
+        this.authService
+            .mutate<{ login: { token: string } }>(LOGIN, { email, password })
+            .subscribe({
+                next: (response) => {
+                    if (response && response.login && response.login.token) {
+                        const token = response.login.token;
+                        this.authService.setToken(token);
+                        this.router.navigate(['/employees']);
+                    } else {
+                        this.errorMessage = 'Login failed: No token returned';
+                        console.error('No token in login response');
+                    }
+                },
+                error: (error) => {
+                    this.errorMessage = error.message;
+                    console.error('Login Error:', error);
+                },
+            });
+    }
 }
