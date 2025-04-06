@@ -19,12 +19,12 @@ export const appConfig: ApplicationConfig = {
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignupComponent },
       { path: 'employees', component: EmployeeListComponent },
+      { path: 'employee/add', component: EmployeeAddComponent },
       {
         path: 'employee/:id',
         component: EmployeeDetailsComponent,
         data: { renderMode: 'ssr' },
       },
-      { path: 'employee/add', component: EmployeeAddComponent },
       { path: 'employee/update/:id', component: EmployeeUpdateComponent },
       { path: '**', redirectTo: '/login' },
     ]),
