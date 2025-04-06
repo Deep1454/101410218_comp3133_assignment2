@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet, RouterModule } from '@angular/router';
 import { AuthService } from './services/auth/auth.service';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, MatToolbarModule, MatButtonModule,CommonModule],
+  imports: [RouterOutlet, RouterLink, MatToolbarModule, MatButtonModule,CommonModule, RouterModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })

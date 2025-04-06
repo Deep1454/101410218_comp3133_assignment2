@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-signup',
@@ -21,6 +22,7 @@ import { CommonModule } from '@angular/common';
         MatInputModule,
         MatButtonModule,
         MatSelectModule,
+        RouterLink
     ],
     templateUrl: './signup.component.html',
     styleUrls: ['./signup.component.css'],

@@ -1,53 +1,42 @@
-<mat-card>
-  <mat-card-header>
+<mat-card class="signup-card">
+    <mat-card-header>
       <mat-card-title>Sign Up</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
+    </mat-card-header>
+    <mat-card-content>
       <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-          <mat-form-field appearance="fill">
-              <mat-label>First Name</mat-label>
-              <input matInput formControlName="firstName" />
-              @if (signupForm.get('firstName')?.hasError('required')) {
-                  <mat-error>First Name is required</mat-error>
-              }
-          </mat-form-field>
-
-          <mat-form-field appearance="fill">
-              <mat-label>Last Name</mat-label>
-              <input matInput formControlName="lastName" />
-              @if (signupForm.get('lastName')?.hasError('required')) {
-                  <mat-error>Last Name is required</mat-error>
-              }
-          </mat-form-field>
-
-          <mat-form-field appearance="fill">
-              <mat-label>Email</mat-label>
-              <input matInput formControlName="email" type="email" />
-              @if (signupForm.get('email')?.hasError('required')) {
-                  <mat-error>Email is required</mat-error>
-              }
-              @if (signupForm.get('email')?.hasError('email')) {
-                  <mat-error>Invalid email format</mat-error>
-              }
-          </mat-form-field>
-
-          <mat-form-field appearance="fill">
-              <mat-label>Password</mat-label>
-              <input matInput formControlName="password" type="password" />
-              @if (signupForm.get('password')?.hasError('required')) {
-                  <mat-error>Password is required</mat-error>
-              }
-              @if (signupForm.get('password')?.hasError('minlength')) {
-                  <mat-error>Password must be at least 6 characters</mat-error>
-              }
-          </mat-form-field>
-
-
-          @if (errorMessage) {
-              <mat-error>{{ errorMessage }}</mat-error>
-          }
-
-          <button mat-raised-button color="primary" type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName" />
+          <mat-error *ngIf="signupForm.get('firstName')?.hasError('required')">First Name is required</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName" />
+          <mat-error *ngIf="signupForm.get('lastName')?.hasError('required')">Last Name is required</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" />
+          <mat-error *ngIf="signupForm.get('email')?.hasError('required')">Email is required</mat-error>
+          <mat-error *ngIf="signupForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" />
+          <mat-error *ngIf="signupForm.get('password')?.hasError('required')">Password is required</mat-error>
+          <mat-error *ngIf="signupForm.get('password')?.hasError('minlength')">Password must be at least 6 characters</mat-error>
+        </mat-form-field>
+  
+        <mat-error *ngIf="errorMessage" class="error-message">{{ errorMessage }}</mat-error>
+  
+        <button mat-raised-button color="primary" type="submit" class="full-width" [disabled]="signupForm.invalid">Sign Up</button>
       </form>
-  </mat-card-content>
-</mat-card>
+    </mat-card-content>
+    <mat-card-actions>
+      <p>Already have an account? <a routerLink="/login">Log In</a></p>
+    </mat-card-actions>
+  </mat-card>
+  
