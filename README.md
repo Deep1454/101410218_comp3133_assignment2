@@ -12,5 +12,5 @@ This project, `101410218_comp3133_assignment2`, is an Employee Management System
   - Update existing employee records.
 
 - **Deployment**:
-  - Frontend: [https://101410218-comp3133-assignment2.vercel.app] (https://101410218-comp3133-assignment2.vercel.app)
+  - Frontend: [https://101410218-comp3133-assignment2.vercel.app](https://101410218-comp3133-assignment2.vercel.app)
   - Backend: Render [https://comp3133-101410218-assignment1-3.onrender.com/graphql](https://comp3133-101410218-assignment1-3.onrender.com/graphql)
