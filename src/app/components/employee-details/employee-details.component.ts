@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 })
 export class EmployeeDetailsComponent implements OnInit {
   employee: any = null;
-  backendUrl: string = 'http://localhost:2222'; 
+  backendUrl: string = 'https://comp3133-101410218-assignment1-3.onrender.com'; 
 
   constructor(
     private route: ActivatedRoute,

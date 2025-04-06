@@ -8,7 +8,7 @@ import { catchError, map } from 'rxjs/operators';
     providedIn: 'root',
 })
 export class AuthService {
-    private url = 'http://localhost:2222/graphql';
+    private url = 'https://comp3133-101410218-assignment1-3.onrender.com/graphql';
     private token: string | null = null;
 
     constructor(
@@ -91,7 +91,7 @@ export class AuthService {
   
       const headers = this.token ? new HttpHeaders({ Authorization: `Bearer ${this.token}` }) : new HttpHeaders();
   
-      const requestUrl = this.url ?? 'http://localhost:2222/graphql'; 
+      const requestUrl = this.url ?? 'https://comp3133-101410218-assignment1-3.onrender.com/graphql'; 
   
       return this.http.post<{ data: T; errors?: any[] }>(requestUrl, formData, { headers }).pipe(
           map((response) => {
@@ -122,7 +122,7 @@ export class AuthService {
             variables: variables || null,
         };
 
-        const requestUrl = this.url ?? 'http://localhost:2222/graphql';
+        const requestUrl = this.url ?? 'https://comp3133-101410218-assignment1-3.onrender.com/graphql';
         if (!requestUrl) {
             throw new Error('GraphQL URL is undefined in request method. Ensure the AuthService is properly instantiated.');
         }
