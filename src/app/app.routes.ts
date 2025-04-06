@@ -11,8 +11,16 @@ export const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'employees', component: EmployeeListComponent },
   { path: 'employee/add', component: EmployeeAddComponent },
-  { path: 'employee/:id', component: EmployeeDetailsComponent },
-  { path: 'employee/update/:id', component: EmployeeUpdateComponent },
+  {
+    path: 'employee/:id',
+    component: EmployeeDetailsComponent,
+    data: { renderMode: 'ssr' }, 
+},
+{
+    path: 'employee/update/:id',
+    component: EmployeeUpdateComponent,
+    data: { renderMode: 'ssr' }, 
+},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' },
 ];
